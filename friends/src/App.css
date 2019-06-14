@@ -7,9 +7,32 @@ body {
 .friend-card {
   background-color: white;
   width: 300px;
-  padding: 60px 40px;
+
   margin: 10px;
-  box-shadow: 5px 10px 15px rgba(109, 109, 109, 0.3);
+  box-shadow: 0 0 25px rgba(136, 136, 136, 0.1);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.friend-icon {
+  width: 25%;
+  background-color: white;
+  text-align: center;
+}
+
+.friend-details {
+  width: 75%;
+  background-color: rgba(245, 245, 245, 0.527);
+  padding: 15px 0;
+  padding-left: 20px;
+}
+
+.friend-icon i {
+  font-size: 1.7rem;
 }
 
 h1,
@@ -20,44 +43,54 @@ h3 {
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 h4 {
-  font-size: 1.1rem;
+  font-size: 0.7rem;
 }
 
 .friends-container {
   margin: 40px auto;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+
   width: 70%;
 }
 
 .friend-form {
   width: 800px;
   margin: 80px auto;
-  padding: 20px 0 40px 0;
+  padding: 40px 0;
   background-color: white;
-  box-shadow: 5px 10px 15px rgba(109, 109, 109, 0.3);
+  box-shadow: 0 10px 15px rgba(136, 136, 136, 0.1);
   text-align: center;
+  font-size: 2rem;
 }
 
 .friend-form input {
   width: 60%;
-  padding: 40px;
+  padding: 30px;
   margin: 20px;
   font-size: 1.5rem;
+  font-weight: bold;
+  border: 0.5px solid rgba(173, 216, 230, 0.466);
+  border-radius: 10px;
 }
 
 .friend-form button {
   width: 60%;
   padding: 20px;
+  margin-top: 20px;
   background: lightskyblue;
   border-radius: 15px;
   border: none;
-  box-shadow: 5px 5px 10px rgba(109, 109, 109, 0.3);
+  box-shadow: 0 5px 10px rgba(136, 136, 136, 0.2);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgb(0, 52, 163);
+  cursor: pointer;
 }
 
 .nav-bar {
@@ -66,7 +99,7 @@ h4 {
   height: 50px;
   line-height: 50px;
   padding: 0;
-  text-align: right;
+  text-align: center;
 }
 
 .nav-bar a {
@@ -75,4 +108,54 @@ h4 {
   margin: 0 60px;
   font-size: 1.3rem;
   font-weight: bold;
+}
+
+nav .active {
+  text-decoration: underline;
+  color: rgb(194, 214, 251);
+}
+
+nav a:hover {
+  color: rgb(194, 214, 251);
+}
+
+.home-container {
+  width: 900px;
+  margin: 60px auto;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.edit-delete-button-holder {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  height: 40px;
+}
+
+.delete {
+  color: rgb(197, 11, 11);
+}
+
+.delete i:hover {
+  color: red;
+}
+
+.friend-icon-top {
+  height: 50px;
+}
+
+.edit-delete-button-holder i {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.edit a:hover {
+  color: #247fe7;
+}
+
+.edit a {
+  text-decoration: none;
+  color: black;
 }

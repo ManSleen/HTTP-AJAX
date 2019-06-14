@@ -3,6 +3,7 @@ import axios from "axios";
 import FriendsList from "./components/FriendsList";
 import FriendForm from "./components/FriendForm";
 import Home from "./components/Home";
+import UpdateFriendForm from "./components/UpdateFriendForm";
 import NavBar from "./components/NavBar";
 
 import { Route } from "react-router-dom";
@@ -11,7 +12,8 @@ import "./App.css";
 
 class App extends React.Component {
   state = {
-    friends: []
+    friends: [],
+    activeFriend: null
   };
 
   componentDidMount() {
@@ -28,38 +30,105 @@ class App extends React.Component {
       });
   }
 
-  addFriend = e => {
-    e.preventDefault();
+  addFriend = friend => {
     console.log("You just added a friend dawg!");
+    axios
+      .post("http://localhost:5000/friends", friend)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          friends: res.data
+        });
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
-  changeHandler = e => {
+  setUpdateForm = (e, friend) => {
     e.preventDefault();
-    console.log("Ready to handle some changes?!");
+
+    this.setState({
+      activeFriend: friend
+    });
+    this.props.history.push("/update-friend");
+  };
+
+  updateFriend = updatedFriend => {
+    axios
+      .put(`http://localhost:5000/friends/${updatedFriend.id}`, updatedFriend)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          friends: res.data
+        });
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  deleteFriend = id => {
+    axios
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          friends: res.data
+        });
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
     return (
       <div className="App">
         <NavBar />
-        <Route exact path="/" component={Home} />
 
         <Route
-          path="/friends"
+          exact
+          path="/"
           render={props => (
             <FriendsList
               {...props}
+              setUpdateForm={this.setUpdateForm}
+              updateFriend={this.updateFriend}
+              deleteFriend={this.deleteFriend}
               friends={this.state.friends}
               changeHandler={this.changeHandler}
               addFriend={this.addFriend}
             />
           )}
         />
-
-        <FriendForm
-          changeHandler={this.changeHandler}
-          addFriend={this.addFriend}
-          friends={this.state.friends}
+        <Route
+          path="/add-friend"
+          render={props => (
+            <FriendForm
+              {...props}
+              updateFriend={this.updateFriend}
+              changeHandler={this.changeHandler}
+              addFriend={this.addFriend}
+              friends={this.state.friends}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/update-friend"
+          render={props => (
+            <UpdateFriendForm
+              {...props}
+              activeFriend={this.state.activeFriend}
+              updateFriend={this.updateFriend}
+              changeHandler={this.changeHandler}
+              friends={this.state.friends}
+            />
+          )}
         />
       </div>
     );
